@@ -4,27 +4,23 @@ Intermedia a comunicação entre a API (Router) e o Banco (Repository).
 """
 from app.schemas.profissional import ProfissionalCreate
 from app.repositories.profissional_repository import profissional_repo
+from app.utils.common import generate_slug
 
 
-def create_profissional(data: ProfissionalCreate):
+def create_profissional(data: ProfissionalCreate, uid: str):
     """
     Aplica regras de negócio para criar um novo profissional.
     - Inicializa rating e reviews como zero.
     - Verifica duplicidade de slug.
     """
-    # 1. Converte o objeto Pydantic para dicionário Python
-    novo_prof = data.model_dump()
+    novo_prof = data.model_dump(mode='json')
 
-    # 2. Regra de Negócio: cada novo profissional começa zerado
     novo_prof["rating"] = 0.0
     novo_prof["reviews"] = 0
 
-    # 3. Regra de Negócio: Verificar se slug já existe
-    if profissional_repo.find_by_slug(novo_prof["slug"]):
-        raise ValueError("Já existe um profissional com este slug.")
-
-    # 4. Persistência
-    return profissional_repo.create(novo_prof)
+    sufixo = uid[-6:]
+    novo_prof["slug"] = generate_slug(novo_prof["nome"], sufixo)
+    return profissional_repo.create_with_custom_id(uid, novo_prof)
 
 
 def list_profissionais():

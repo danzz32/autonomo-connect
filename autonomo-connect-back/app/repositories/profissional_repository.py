@@ -52,6 +52,14 @@ class ProfissionalRepository:
             return dados
         return None
 
+    def create_with_custom_id(self, custom_id: str, dados: dict) -> dict:
+        """
+        Cria ou sobrescreve um documento com um ID específico (o UID do usuário).
+        """
+        doc_ref = self._get_collection().document(custom_id)
+        doc_ref.set(dados)
+        return {**dados, "id": custom_id}
+
 
 # Instância Singleton para injeção de dependência
 profissional_repo = ProfissionalRepository()
