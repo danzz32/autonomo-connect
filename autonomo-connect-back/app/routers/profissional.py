@@ -14,26 +14,24 @@ router = APIRouter(
 
 
 # Agora `verify_firebase_token` retorna os dados do usuário (user_payload)
-@router.post("/", response_model=ProfissionalResponse, status_code=201)
+@router.post("/create", response_model=ProfissionalResponse, status_code=201)
 def criar_profissional(
         profissional: ProfissionalCreate,
-        user_payload: dict = Depends(verify_firebase_token)  # <--- Proteção aqui
+        user_payload: dict = Depends(verify_firebase_token)  # Payload do token
 ):
     """
-    Endpoint protegido via JWT.
-    Cria um novo profissional vinculado ao usuário logado.
-    """
+        Endpoint protegido via JWT.
+        Cria um novo profissional vinculado ao usuário logado.
+        """
     try:
-        # (Opcional) Você pode pegar o ID do usuário logado aqui:
-        # uid = user_payload.get("uid")
-        # print(f"Usuário {uid} está criando um perfil.")
+        # Extraímos o UID do token
+        uid = user_payload["uid"]
+        return profissional_service.create_profissional(profissional, uid)
 
-        return profissional_service.create_profissional(profissional)
     except ValueError as err:
         raise HTTPException(status_code=400, detail=str(err)) from err
 
 
-# Rotas GET continuam públicas (sem Depends)
 @router.get("/", response_model=List[ProfissionalResponse])
 def listar_profissionais():
     """Lista pública de profissionais."""

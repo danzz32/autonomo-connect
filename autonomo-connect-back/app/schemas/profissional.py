@@ -1,18 +1,11 @@
-"""
-Schemas Pydantic para validação e serialização dos dados de Profissionais.
-Define os contratos de entrada e saída da API.
-"""
-from typing import Optional
 from pydantic import BaseModel
+from typing import Optional
+from app.schemas.enums import CategoriaEnum, UserRoleEnum
 
 
 class ProfissionalBase(BaseModel):
-    """
-    Modelo base com campos comuns para criação e leitura.
-    """
     nome: str
-    slug: str
-    categoria: str
+    categoria: CategoriaEnum
     profissao: str
     precoHora: float
     isPremium: bool = False
@@ -20,21 +13,15 @@ class ProfissionalBase(BaseModel):
 
 
 class ProfissionalCreate(ProfissionalBase):
-    """
-    Schema para recebimento de dados na criação (Input).
-    Herda todos os campos base.
-    """
+    role: UserRoleEnum = UserRoleEnum.PROFESSIONAL
 
 
 class ProfissionalResponse(ProfissionalBase):
-    """
-    Schema para resposta da API (Output).
-    Inclui campos gerenciados pelo sistema (ID, Rating).
-    """
     id: str
+    slug: str
     rating: float
     reviews: int
+    role: UserRoleEnum
 
     class Config:
-        """Configurações do Pydantic para compatibilidade com ORMs/Dicts."""
         from_attributes = True

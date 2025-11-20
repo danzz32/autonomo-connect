@@ -4,14 +4,14 @@ Responsável por inicializar o app, middlewares e incluir as rotas.
 """
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from dotenv import load_dotenv  # <--- Adicione isso
+from dotenv import load_dotenv
 import os
 
 # 1. Carrega variáveis do arquivo .env (se existir)
 load_dotenv()
 
 from app.database import initialize_firebase
-from app.routers import profissional
+from app.routers import profissional, user
 
 # 1. Inicializa a conexão com o banco
 initialize_firebase()
@@ -20,7 +20,7 @@ app = FastAPI(title="Autonomo Connect API")
 
 # 2. Configuração de Segurança (CORS)
 origins = [
-    "http://localhost:5173",  # Vite Local
+    "http://localhost:5173",
     "http://127.0.0.1:5173",
 ]
 
@@ -34,6 +34,7 @@ app.add_middleware(
 
 # 3. Registro das Rotas
 app.include_router(profissional.router)
+app.include_router(user.router)
 
 
 @app.get("/")
