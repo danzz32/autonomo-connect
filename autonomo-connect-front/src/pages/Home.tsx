@@ -29,7 +29,9 @@ export function Home() {
             <Link to="/sou-profissional">
               <Button variant="outline">Sou Profissional</Button>
             </Link>
-            <Button>Entrar</Button>
+            <Link to="/sou-profissional">
+              <Button>Entrar</Button>
+            </Link>
           </div>
         </div>
       </header>
