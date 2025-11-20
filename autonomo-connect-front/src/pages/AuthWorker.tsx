@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate, Link } from "react-router-dom"; // Importamos useNavigate
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -20,18 +21,22 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { ArrowLeft, Briefcase, CheckCircle2 } from "lucide-react";
-import { Link } from "react-router-dom";
 import { CATEGORIAS } from "@/mocks/data";
 
 export function AuthWorker() {
-  // Estado apenas para simular o carregamento do botão
+  const navigate = useNavigate(); // Hook de navegação
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    // Simulação de API
-    setTimeout(() => setIsLoading(false), 2000);
+
+    // Simulação de API (Network Request)
+    setTimeout(() => {
+      setIsLoading(false);
+      // Redireciona para o Painel após "login/cadastro"
+      navigate("/painel");
+    }, 2000);
   };
 
   return (
@@ -45,7 +50,7 @@ export function AuthWorker() {
         </Link>
       </div>
 
-      <div className="mx-5 space-y-6">
+      <div className="w-full max-w-md space-y-6">
         <div className="text-center space-y-2">
           <div className="w-12 h-12 bg-orange-600 rounded-xl flex items-center justify-center mx-auto mb-4">
             <Briefcase className="text-white" />
@@ -155,7 +160,6 @@ export function AuthWorker() {
                         {CATEGORIAS.map((cat) => (
                           <SelectItem key={cat.id} value={cat.slug}>
                             <div className="flex items-center gap-2">
-                              {/* Renderizando ícone se possível, ou apenas texto */}
                               <span>{cat.nome}</span>
                             </div>
                           </SelectItem>

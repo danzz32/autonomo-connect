@@ -155,6 +155,30 @@ export const TODOS_PROFISSIONAIS: Profissional[] = [
   },
 ];
 
+// Adicione ao final de src/mocks/data.ts
+
+export const DASHBOARD_STATS = {
+  visualizacoes: 128,
+  contatosWhatsapp: 14,
+  avaliacaoMedia: 4.8,
+  mensagensNaoLidas: 2,
+  plano: "Gratuito", // ou "Premium"
+};
+
+export const ULTIMAS_ATIVIDADES = [
+  { id: 1, texto: "João Silva visualizou seu telefone", data: "Há 10 min" },
+  {
+    id: 2,
+    texto: "Maria Souza deixou uma avaliação 5 estrelas",
+    data: "Há 2 horas",
+  },
+  {
+    id: 3,
+    texto: "Seu perfil apareceu em 30 buscas hoje",
+    data: "Hoje, 08:00",
+  },
+];
+
 // Lógica de Destaque: Primeiro filtramos os Premiums, depois completamos com o resto
 const premiums = TODOS_PROFISSIONAIS.filter((p) => p.isPremium);
 const normais = TODOS_PROFISSIONAIS.filter((p) => !p.isPremium);
