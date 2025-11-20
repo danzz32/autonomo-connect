@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Home } from "@/pages/Home";
+import { Support } from "@/pages/Support";
 import { AuthWorker } from "@/pages/AuthWorker";
 import { SearchPage } from "@/pages/Search";
 import { Profile } from "@/pages/Profile";
@@ -15,6 +16,7 @@ function App() {
         <Route path="/sou-profissional" element={<AuthWorker />} />
         <Route path="/busca" element={<SearchPage />} />
         <Route path="/perfil/:slug" element={<Profile />} />
+        <Route path="/suporte" element={<Support />} />
       </Routes>
     </Router>
   );

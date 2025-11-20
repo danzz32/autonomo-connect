@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Search, Star, MapPin } from "lucide-react";
 import { CATEGORIAS, PROFISSIONAIS_DESTAQUE } from "@/mocks/data";
 import { Link, useNavigate } from "react-router-dom";
+import { HelpCircle } from "lucide-react"; // importe o ícone desejado
 
 export function Home() {
   const navigate = useNavigate();
@@ -25,6 +26,12 @@ export function Home() {
           <div className="hidden md:flex gap-4">
             <Link to="/como-funciona">
               <Button variant="ghost">Como funciona</Button>
+            </Link>
+            <Link to="/suporte">
+              <Button variant="ghost" className="flex items-center gap-2">
+                <HelpCircle size={16} />
+                Suporte
+              </Button>
             </Link>
             <Link to="/sou-profissional">
               <Button variant="outline">Sou Profissional</Button>
@@ -154,7 +161,7 @@ export function Home() {
       </main>
 
       <footer className="bg-slate-900 text-slate-400 py-8 text-center text-sm">
-        © 2025 Autônomo Connect. Feito com React e Shadcn.
+        © 2025 ConnectUp.
       </footer>
     </div>
   );
