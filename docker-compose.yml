@@ -2,13 +2,17 @@ version: '3.8'
 
 services:
   backend:
-    build: ./backend
-    ports:
-      - "8000:8000"
-    volumes:
-      - ./backend:/app
-    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
-
+      build: ./autonomo-connect-back
+      container_name: autonomo-back
+      ports:
+        - "8000:8000"
+      volumes:
+        # Sincroniza código local com container (Hot Reload do Python)
+        - ./autonomo-connect-back:/app
+      # # Dependência: O back só inicia depois que o front estiver ok (opcional, mas organiza)
+      # depends_on:
+      #   - frontend
+      
   frontend:
     image: node:20-alpine
     container_name: autonomo-front

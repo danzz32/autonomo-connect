@@ -1,14 +1,17 @@
-# backend/Dockerfile
-FROM python:3.10-slim
+FROM python:3.13-slim
 
 WORKDIR /app
 
+# Copia dependências e instala
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
+# Copia o código todo (incluindo a chave json)
 COPY . .
 
-# Porta que o Render geralmente usa (mas injetaremos via env)
+# Expõe a porta 8000
 EXPOSE 8000
 
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+# Comando para rodar a API
+# O reload é útil em dev, mas em prod removemos
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
