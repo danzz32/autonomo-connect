@@ -20,7 +20,7 @@ import {
 
 export function HowItWorks() {
   return (
-    <div className="min-h-screen bg-slate-50 pb-20">
+    <div className="min-h-screen bg-slate-50">
       {/* HEADER SIMPLES */}
       <header className="bg-white border-b py-4 sticky top-0 z-30">
         <div className="container mx-auto px-6 flex items-center gap-4">

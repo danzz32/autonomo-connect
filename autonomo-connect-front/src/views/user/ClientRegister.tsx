@@ -126,10 +126,6 @@ export function ClientRegister() {
                      <img src="https://www.svgrepo.com/show/475656/google-color.svg" className="h-5 w-5 mr-2" alt="Google" />
                      Google
                   </Button>
-                  <Button variant="outline" className="w-full h-11 border-slate-200 hover:bg-slate-50">
-                     <img src="https://www.svgrepo.com/show/475647/facebook-color.svg" className="h-5 w-5 mr-2" alt="Facebook" />
-                     Facebook
-                  </Button>
                </div>
             </div>
 
