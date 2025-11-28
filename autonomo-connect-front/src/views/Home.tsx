@@ -8,7 +8,6 @@ import {
   Search,
   Star,
   MapPin,
-  ArrowRight,
   CheckCircle2,
   HelpCircle,
   Wrench,
@@ -244,12 +243,14 @@ export function Home() {
                   className="pl-12 h-12 border-0 bg-transparent text-base focus-visible:ring-0 focus-visible:ring-offset-0 placeholder:text-slate-400"
                 />
               </div>
+              <Link to="/busca">
               <Button
                 size="lg"
                 className="h-12 px-8 rounded-xl font-semibold bg-orange-600 hover:bg-orange-700 text-white shadow-lg shadow-orange-600/20 transition-all hover:scale-105 active:scale-95"
               >
                 Buscar
               </Button>
+              </Link>
             </motion.div>
 
             {/* SOCIAL PROOF / TRUST BADGES */}
@@ -286,12 +287,7 @@ export function Home() {
                 Encontre exatamente o que sua casa precisa.
               </p>
             </div>
-            <Button
-              variant="link"
-              className="text-orange-600 font-semibold hidden md:flex group"
-            >
-              <ArrowRight className="ml-1 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </Button>
+
           </div>
 
           <motion.div
@@ -342,12 +338,14 @@ export function Home() {
                   Os talentos mais elogiados da comunidade esta semana.
                 </p>
               </div>
+              <Link to="/busca">
               <Button
                 variant="outline"
                 className="border-slate-900 text-orange-600 hover:bg-slate-800 hover:text-white hidden md:flex"
               >
                 Ver a lista Completa
               </Button>
+              </Link>
             </div>
 
             <motion.div
@@ -446,13 +444,7 @@ export function Home() {
                         Começar Agora
                       </Button>
                     </Link>
-                    <Button
-                      size="lg"
-                      variant="outline"
-                      className="border-white/30 text-orange-600 hover:bg-white/10 h-14 px-8 text-lg"
-                    >
-                      Simular Ganhos
-                    </Button>
+                  
                   </div>
                 </div>
                 {/* Ilustração ou Imagem poderia vir aqui */}
@@ -493,14 +485,10 @@ export function Home() {
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-orange-600 transition-colors">
-                  Carreiras
-                </a>
+
               </li>
               <li>
-                <a href="#" className="hover:text-orange-600 transition-colors">
-                  Imprensa
-                </a>
+            
               </li>
             </ul>
           </div>
@@ -518,18 +506,12 @@ export function Home() {
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-orange-600 transition-colors">
-                  Guia de preços
-                </a>
+             
               </li>
             </ul>
           </div>
           <div>
-            <h4 className="font-bold text-slate-900 mb-4">Newsletter</h4>
-            <div className="flex gap-2">
-              <Input placeholder="Seu e-mail" className="bg-white" />
-              <Button className="bg-slate-900 text-white">OK</Button>
-            </div>
+            
           </div>
         </div>
         <div className="container mx-auto px-4 text-center border-t pt-8 text-slate-400">
