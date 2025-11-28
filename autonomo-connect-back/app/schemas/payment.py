@@ -1,53 +1,52 @@
-from pydantic import BaseModel, Field, field_validator
+"""
+Schemas para Métodos de Pagamento.
+Focados na segurança e separação entre dados de entrada (sensíveis) e saída (tokenizados).
+"""
 from typing import Optional
+from pydantic import BaseModel, field_validator, ValidationInfo
 from app.schemas.enums import PaymentTypeEnum
 
 
-# Base comum a todos
 class PaymentMethodBase(BaseModel):
+    """Campos comuns de pagamento."""
     tipo: PaymentTypeEnum
     is_default: bool = False
 
 
-# O que o Frontend envia (Input)
 class PaymentMethodCreate(PaymentMethodBase):
-    # Dados para Cartão
+    """
+    Input de pagamento. Contém dados sensíveis que JAMAIS devem ser salvos.
+    """
     card_holder: Optional[str] = None
-    card_number: Optional[str] = None  # Front manda completo, mas não salvamos
-    card_expiry: Optional[str] = None  # MM/YY
-    card_cvv: Optional[str] = None  # Nunca salvaremos
-
-    # Dados para Pix
+    card_number: Optional[str] = None
+    card_expiry: Optional[str] = None
+    card_cvv: Optional[str] = None
     pix_key: Optional[str] = None
-    pix_key_type: Optional[str] = None  # CPF, Email, Random
-
-    # Dados para Boleto (Endereço de cobrança)
+    pix_key_type: Optional[str] = None
     billing_address: Optional[str] = None
 
     @field_validator('card_number')
     @classmethod
-    def validate_card(cls, v, values):
-        # Validação simples se for cartão
-        if values.data.get('tipo') in [PaymentTypeEnum.CREDIT_CARD, PaymentTypeEnum.DEBIT_CARD]:
-            if not v or len(v) < 13:
+    def validate_card(cls, v_card, info: ValidationInfo):
+        """Valida se o cartão tem o tamanho mínimo, apenas se o tipo for Cartão."""
+        if info.data.get('tipo') in [PaymentTypeEnum.CREDIT_CARD, PaymentTypeEnum.DEBIT_CARD]:
+            if not v_card or len(v_card) < 13:
                 raise ValueError('Número de cartão inválido')
-        return v
+        return v_card
 
 
-# O que o Backend devolve (Output - Seguro)
 class PaymentMethodResponse(PaymentMethodBase):
+    """
+    Output de pagamento. Retorna apenas dados seguros (últimos 4 dígitos).
+    """
     id: str
-    # Para cartão, só mostramos o final
     last_four_digits: Optional[str] = None
     card_holder: Optional[str] = None
     card_expiry: Optional[str] = None
-
-    # Pix e Boleto
     pix_key: Optional[str] = None
     billing_address: Optional[str] = None
-
-    # Token "falso" do gateway
     gateway_token: str
 
     class Config:
+        """Configuração Pydantic."""
         from_attributes = True
