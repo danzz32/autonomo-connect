@@ -12,6 +12,8 @@ import { Settings } from "@/views/dashboard/Settings";
 import { NotFound } from "@/views/NotFound";
 import { ClientLandingPage } from "@/views/user/ClientLandingPage";
 import { ClientRegister } from "@/views/user/ClientRegister";
+import { ClientLogin } from "@/views/user/ClientLogin"; // Importação adicionada
+import { ForgotPassword } from "@/views/user/ForgotPassword"; // Importação adicionada
 
 function App() {
   return (
@@ -26,6 +28,9 @@ function App() {
         {/* Rotas Cliente (NOVAS) */}
         <Route path="/sou-cliente" element={<ClientLandingPage />} />
         <Route path="/cadastro-cliente" element={<ClientRegister />} />
+        {/* Rotas de Autenticação do Cliente */}
+        <Route path="/ClientLogin" element={<ClientLogin />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
 
         <Route path="/busca" element={<SearchPage />} />
         <Route path="/perfil/:slug" element={<Profile />} />

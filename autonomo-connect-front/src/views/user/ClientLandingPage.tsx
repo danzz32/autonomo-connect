@@ -31,7 +31,7 @@ export function ClientLandingPage() {
             <span className="text-lg font-bold text-slate-900">ObraFácil</span>
           </div>
           <div className="flex gap-4">
-            <Button variant="ghost" onClick={() => navigate("/login")}>
+            <Button variant="ghost" onClick={() => navigate("/Clientlogin")}>
               Entrar
             </Button>
             <Button
