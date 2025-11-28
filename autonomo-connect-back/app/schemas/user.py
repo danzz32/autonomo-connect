@@ -1,4 +1,4 @@
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, EmailStr, Field
 from typing import Optional
 from app.schemas.enums import UserRoleEnum
 
@@ -6,19 +6,20 @@ from app.schemas.enums import UserRoleEnum
 class UserBase(BaseModel):
     nome: str
     email: EmailStr
-    avatar: Optional[str] = None
+    celular: str = Field(..., description="Número de celular com DDD")
+    avatar: Optional[str] = "https://github.com/shadcn.png"
 
 
 class UserCreate(UserBase):
     """
-    Dados recebidos ao criar um usuário comum.
-    Geralmente vem do cadastro no Firebase.
+    Dados recebidos ao criar o perfil.
+    A senha não vem aqui, ela fica no Firebase Auth.
     """
     role: UserRoleEnum = UserRoleEnum.CLIENT
 
 
 class UserResponse(UserBase):
-    id: str  # O UID do Firebase
+    id: str
     role: UserRoleEnum
 
     class Config:

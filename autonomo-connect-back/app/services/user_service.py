@@ -4,11 +4,13 @@ from app.repositories.user_repository import user_repo
 
 
 def create_client(data: UserCreate, uid: str):
-    # Converte Pydantic para dict
+    # Converte o objeto Pydantic para dicionário
     user_dict = data.model_dump(mode='json')
-    user_dict["role"] = UserRoleEnum.CLIENT
 
-    # Salva no banco
+    # Garante que o papel seja CLIENT (segurança)
+    user_dict["role"] = UserRoleEnum.CLIENT.value
+
+    # O repositório salva (com merge=True)
     return user_repo.create_or_update(uid, user_dict)
 
 
