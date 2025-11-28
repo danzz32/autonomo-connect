@@ -1,7 +1,9 @@
+protobuf
 fastapi
 uvicorn[standard]
 firebase-admin
 python-dotenv
+pydantic
 pylint
 pytest
 httpx
